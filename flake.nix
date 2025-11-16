@@ -3,23 +3,21 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    yarn2nix.url = "github:nix-community/yarn2nix";
   };
 
-  outputs = { self, nixpkgs, yarn2nix }:
+  outputs = { self, nixpkgs }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      yarn2nixPkgs = yarn2nix.packages.${system};
     in {
-      packages.${system}.default = yarn2nixPkgs.buildYarnPackage {
+      packages.${system}.default = pkgs.buildNpmPackage {
         pname = "actual-mcp";
         version = "1.5.0";
         src = self;
-        yarnBuildMore = "build";
-        yarnNixDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Placeholder
+        yarnLock = ./yarn.lock;
+        npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Placeholder
         buildPhase = ''
-          yarn build
+          npm run build
         '';
         installPhase = ''
           mkdir -p $out/bin
