@@ -15,7 +15,7 @@
         version = "1.5.0";
         src = self;
         yarnLock = ./yarn.lock;
-        npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Placeholder
+        npmDepsHash = "sha256-gOGYTtK+gxeptT14g8ClowbEZh6iGQaJPkVyagQtfq0=";
         buildPhase = ''
           npm run build
         '';
