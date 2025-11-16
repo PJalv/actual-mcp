@@ -14,11 +14,11 @@
         pname = "actual-mcp";
         version = "1.5.0";
         src = self;
-        buildInputs = [ pkgs.nodejs ];
+        buildInputs = [ pkgs.bun ];
         buildPhase = ''
           set -x
-          npm ci --verbose
-          npx tsc --verbose -p tsconfig.build.json
+          bun install
+          bunx tsc --verbose -p tsconfig.build.json
         '';
         installPhase = ''
           mkdir -p $out/bin
