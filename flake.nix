@@ -3,21 +3,22 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    yarn2nix.url = "github:nix-community/yarn2nix";
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, yarn2nix }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      yarn2nixPkgs = yarn2nix.packages.${system};
     in {
-      packages.${system}.default = pkgs.stdenv.mkDerivation {
+      packages.${system}.default = yarn2nixPkgs.buildYarnPackage {
         pname = "actual-mcp";
         version = "1.5.0";
         src = self;
-        buildInputs = [ pkgs.yarn pkgs.nodejs ];
+        yarnBuildMore = "build";
+        yarnNixDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Placeholder
         buildPhase = ''
-          set -x
-          yarn install --frozen-lockfile
           yarn build
         '';
         installPhase = ''
