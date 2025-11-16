@@ -29,14 +29,7 @@
 
       apps.${system}.default = {
         type = "app";
-        program = let
-          script = pkgs.writeShellScript "actual-mcp" ''
-            set -e
-            npm install
-            npm run build
-            exec node build/index.js "$@"
-          '';
-        in "${script}";
+        program = "${self.packages.${system}.default}/bin/actual-mcp";
       };
     };
 }
