@@ -14,11 +14,11 @@
         pname = "actual-mcp";
         version = "1.5.0";
         src = self;
-        buildInputs = [ pkgs.bun ];
+        buildInputs = [ pkgs.yarn pkgs.nodejs ];
         buildPhase = ''
           set -x
-          bun install
-          bunx tsc --verbose -p tsconfig.build.json
+          yarn install --frozen-lockfile
+          yarn build
         '';
         installPhase = ''
           mkdir -p $out/bin
