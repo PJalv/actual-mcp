@@ -18,7 +18,7 @@
         buildPhase = ''
           set -x
           npm ci --verbose
-          npm run build
+          npx tsc --verbose -p tsconfig.build.json
         '';
         installPhase = ''
           mkdir -p $out/bin
