@@ -17,7 +17,7 @@
         buildInputs = [ pkgs.nodejs ];
         buildPhase = ''
           set -x
-          npm ci
+          npm ci --verbose
           npm run build
         '';
         installPhase = ''
