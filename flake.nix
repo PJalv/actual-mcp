@@ -16,6 +16,7 @@
         src = self;
         buildInputs = [ pkgs.nodejs ];
         buildPhase = ''
+          set -x
           npm ci
           npm run build
         '';
