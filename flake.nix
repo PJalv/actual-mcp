@@ -32,8 +32,8 @@
         program = let
           script = pkgs.writeShellScript "actual-mcp" ''
             set -e
-            yarn install
-            yarn build
+            npm install
+            npm run build
             exec node build/index.js "$@"
           '';
         in "${script}";
